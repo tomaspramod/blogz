@@ -40,13 +40,14 @@ def new_post():
     title=request.form['title']
     body=request.form['body']
     new_post=Blog(title,body)
-    id=str(new_post.id)
-    if title or body == "":
+    
+    if title == "" or body == "":
         flash("Make sure you enter a title and some content!")
         return render_template("submit.html", title=title,body=body)
     else:
         db.session.add(new_post)
         db.session.commit()
+        id=str(new_post.id)
         return redirect("/blog?id="+id)
 
 
